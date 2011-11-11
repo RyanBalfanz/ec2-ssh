@@ -26,6 +26,8 @@ fi
 # get host from ec2-host command
 host=$(ec2-host $inst)
 
+identity=${AWS_IDENTITY}
+
 # pass all other parameters (${@:2}) to ssh allowing
 # things like: ec2-ssh nginx uptime
-test -n "$host" && exec sh -c "ssh $user@$host ${@:2}"
+test -n "$host" && exec sh -c "ssh -v -i $identity $user@$host ${@:2}"
